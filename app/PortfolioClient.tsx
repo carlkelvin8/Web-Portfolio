@@ -44,6 +44,25 @@ export default function PortfolioClient() {
     );
     targets.forEach((element) => observer.observe(element));
 
+    const projectList = document.querySelector<HTMLElement>("#project-list");
+    const moreButton = document.querySelector<HTMLButtonElement>(".projects-more-button");
+    const hiddenCount = Math.max(0, (projectList?.children.length ?? 0) - 6);
+    const toggleProjects = () => {
+      if (!projectList || !moreButton) return;
+      const expanded = !projectList.classList.toggle("is-collapsed");
+      moreButton.setAttribute("aria-expanded", String(expanded));
+      moreButton.innerHTML = expanded
+        ? 'Show fewer projects <span aria-hidden="true">↑</span>'
+        : `See ${hiddenCount} more projects <span aria-hidden="true">↘</span>`;
+      if (!expanded) moreButton.scrollIntoView({ block: "center" });
+    };
+    if (projectList && moreButton && hiddenCount > 0) {
+      projectList.classList.add("is-collapsed");
+      moreButton.hidden = false;
+      moreButton.textContent = `See ${hiddenCount} more projects ↘`;
+      moreButton.addEventListener("click", toggleProjects);
+    }
+
     const cursor = document.querySelector<HTMLElement>(".cursor");
     const interactiveElements = Array.from(
       document.querySelectorAll<HTMLElement>("a,button,.project"),
@@ -67,6 +86,7 @@ export default function PortfolioClient() {
       menuButton?.removeEventListener("click", toggleMenu);
       menuLinks.forEach((link) => link.removeEventListener("click", closeMenu));
       observer.disconnect();
+      moreButton?.removeEventListener("click", toggleProjects);
       window.removeEventListener("mousemove", moveCursor);
       interactiveElements.forEach((element) => {
         element.removeEventListener("mouseenter", activateCursor);

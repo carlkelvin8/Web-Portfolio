@@ -84,3 +84,29 @@
 @media(min-width:1101px){.project-list>.project.daccoffee-project{grid-column:3/span 2!important}}
 @media(min-width:801px) and (max-width:1100px){.project-list>.daccoffee-project{grid-column:1/-1!important;width:calc(50% - 16px)!important;justify-self:center!important}}
 @media(max-width:520px){.daccoffee-art{padding:12% 4% 8%}.daccoffee-art img{width:100%!important;border-radius:9px}.daccoffee-art>span{top:13px;left:13px}}
+
+/* Project cards: a steady gallery rhythm with room for the work itself. */
+.project-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,4vw,58px) clamp(20px,2.6vw,38px);align-items:stretch}
+.project-list>.project:not(.mobile-project){grid-column:auto!important;width:100%!important;justify-self:stretch!important;height:100%;margin:0!important;padding:12px 12px 22px;border-radius:22px;background:#fff;border:1px solid #e9e7ed;box-shadow:0 14px 42px #25203912}
+.project-list>.project:not(.mobile-project) .project-art{aspect-ratio:16/9;border-radius:13px}
+.project-list>.project:not(.mobile-project) .project-meta{padding:24px 10px 0;gap:18px 16px}
+.project-list>.project:not(.mobile-project) .project-meta>div{min-height:0}
+.project-list>.project:not(.mobile-project) .project-meta h3{font-size:clamp(27px,2.8vw,42px);line-height:1.05}
+.project-list>.project:not(.mobile-project) .project-meta>div p{min-height:0;max-width:64ch;margin-top:11px;font-size:14px;line-height:1.55;color:#4a4852}
+.project-list>.project:not(.mobile-project) .project-meta>span{white-space:normal;line-height:1.35;width:fit-content;max-width:100%}
+.project-list>.project:not(.mobile-project) details{margin:24px 10px 0}
+.project-list>.mobile-project{grid-column:1/-1!important;width:100%!important;margin:8px 0 16px!important}
+.mobile-showcase{min-height:620px}
+@media(max-width:800px){.project-list{grid-template-columns:minmax(0,1fr);gap:54px}.project-list>.project:not(.mobile-project),.project-list>.mobile-project{grid-column:1!important}.project-list>.project:not(.mobile-project){height:auto}.mobile-showcase{min-height:0}}
+@media(max-width:520px){.project-list{gap:46px}.project-list>.project:not(.mobile-project){padding:8px 8px 18px;border-radius:18px}.project-list>.project:not(.mobile-project) .project-art{aspect-ratio:4/3;border-radius:11px}.project-list>.project:not(.mobile-project) .project-meta{display:flex;flex-wrap:wrap;align-items:center;padding:20px 8px 0;gap:14px}.project-list>.project:not(.mobile-project) .project-meta>div{flex:1 0 100%}.project-list>.project:not(.mobile-project) .project-meta h3{font-size:28px}.project-list>.project:not(.mobile-project) .project-meta>div p{font-size:13px}.project-list>.project:not(.mobile-project) .project-meta>a{margin:0 0 0 auto}.project-list>.project:not(.mobile-project) details{margin:18px 8px 0}.project-list>.mobile-project{margin:8px 0!important}}
+@media(max-width:520px){.project-list>.project:not(.mobile-project) .project-meta>span{font-size:9px;padding:7px 9px}}
+
+/* Expand the archive on demand while keeping the first six projects visible. */
+.project-list.is-collapsed>.project:nth-child(n+7){display:none}
+.projects-more{display:flex;justify-content:center;margin-top:clamp(44px,5vw,76px)}
+.projects-more-button{display:inline-flex;align-items:center;justify-content:center;gap:34px;min-width:min(100%,310px);padding:18px 25px;border:1px solid var(--ink);border-radius:99px;background:var(--ink);color:#fff;font:11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s,transform .25s}
+.projects-more-button[hidden]{display:none}
+.projects-more-button:hover{background:var(--acid);color:var(--ink);transform:translateY(-3px)}
+.projects-more-button:focus-visible{outline:3px solid var(--violet);outline-offset:4px}
+.projects-more-button span{font-size:18px;line-height:.5}
+@media(max-width:520px){.projects-more-button{width:100%}}
