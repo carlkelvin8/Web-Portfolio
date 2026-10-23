@@ -49,6 +49,30 @@ export default function PortfolioClient() {
   useEffect(() => {
     applySiteConfig();
 
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1, 1);
+    const monthName = nextMonth.toLocaleString("en-US", { month: "long" });
+    document.querySelectorAll(".availability-text").forEach((element) => {
+      element.textContent = `Booking projects for ${monthName}`;
+    });
+
+    // Sticky mobile CTA: visible once the hero is gone, hidden again at the contact section.
+    const mobileCta = document.querySelector<HTMLElement>(".mobile-cta");
+    const ctaHero = document.querySelector(".hero");
+    const ctaContact = document.querySelector("#contact");
+    const ctaSeen = new Map<Element, boolean>();
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => ctaSeen.set(entry.target, entry.isIntersecting));
+      mobileCta?.classList.toggle(
+        "show",
+        !(ctaHero && ctaSeen.get(ctaHero)) && !(ctaContact && ctaSeen.get(ctaContact)),
+      );
+    });
+    if (mobileCta && ctaHero && ctaContact) {
+      ctaObserver.observe(ctaHero);
+      ctaObserver.observe(ctaContact);
+    }
+
     const menuButton = document.querySelector<HTMLButtonElement>(".menu-toggle");
     const menu = document.querySelector<HTMLElement>("#menu");
 
@@ -69,7 +93,7 @@ export default function PortfolioClient() {
     menuLinks.forEach((link) => link.addEventListener("click", closeMenu));
 
     const targets = document.querySelectorAll(
-      ".signal,.section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.footer>*,.offer,.offers-note",
+      ".signal,.section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.footer>*,.offer,.offers-note,.cta-band>*,.proof,.process-step,.process-promises,.faq-item",
     );
     targets.forEach((element) => element.classList.add("reveal"));
 
@@ -164,6 +188,7 @@ export default function PortfolioClient() {
       menuButton?.removeEventListener("click", toggleMenu);
       menuLinks.forEach((link) => link.removeEventListener("click", closeMenu));
       observer.disconnect();
+      ctaObserver.disconnect();
       moreButton?.removeEventListener("click", toggleProjects);
       window.removeEventListener("scroll", requestStackUpdate);
       window.removeEventListener("resize", updateStack);

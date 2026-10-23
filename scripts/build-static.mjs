@@ -48,11 +48,17 @@ const person = {
   sameAs: config.sameAs ?? [],
 };
 
+// Starting prices are read from the service cards so the page and the structured data stay in sync.
+const startingPrice = (name) => {
+  const card = source.match(new RegExp(`<h3>${name.replace(/[+]/g, "\\+")}</h3>[\\s\\S]*?<dd class="offer-price">\\$([\\d,]+)</dd>`));
+  if (!card) throw new Error(`Missing starting price for ${name}`);
+  return Number(card[1].replace(/,/g, ""));
+};
 const services = [
   ["MVP Build", "From idea to launched product: scoping, UI, web app, API, and deployment. Typical timeline 6-8 weeks."],
   ["Mobile App + API", "iOS and Android apps with a solid backend: React Native app, backend API, auth, payments, and store release. Typical timeline 8-12 weeks."],
   ["Admin Dashboard", "Internal tools that run your operations: CRUD, roles, reports, CSV import/export, and analytics. Typical timeline 2-4 weeks."],
-];
+].map(([name, description]) => [name, description, startingPrice(name)]);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -90,14 +96,32 @@ const jsonLd = {
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Services for startup founders",
-        itemListElement: services.map(([name, description]) => ({
+        itemListElement: services.map(([name, description, price]) => ({
           "@type": "Offer",
+          priceSpecification: { "@type": "PriceSpecification", minPrice: price, priceCurrency: "USD" },
           itemOffered: { "@type": "Service", name, description, provider: { "@id": `${siteUrl}/#person` } },
         })),
       },
     },
   ],
 };
+
+// FAQPage data is read from the visible FAQ so the two never drift apart.
+const decode = (text) =>
+  text.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim();
+const faqEntries = [...source.matchAll(/<details class="faq-item"><summary>([\s\S]*?)<\/summary><p>([\s\S]*?)<\/p><\/details>/g)];
+if (faqEntries.length) {
+  jsonLd["@graph"].push({
+    "@type": "FAQPage",
+    "@id": `${siteUrl}/#faq`,
+    url: `${siteUrl}/`,
+    mainEntity: faqEntries.map(([, question, answer]) => ({
+      "@type": "Question",
+      name: decode(question),
+      acceptedAnswer: { "@type": "Answer", text: decode(answer) },
+    })),
+  });
+}
 
 const html = source
   .replaceAll("%SITE_URL%", siteUrl)
