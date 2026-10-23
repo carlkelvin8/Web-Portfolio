@@ -110,3 +110,73 @@
 .projects-more-button:focus-visible{outline:3px solid var(--violet);outline-offset:4px}
 .projects-more-button span{font-size:18px;line-height:.5}
 @media(max-width:520px){.projects-more-button{width:100%}}
+
+/* Text wordmark: name + role */
+.brand-wordmark{display:flex;flex-direction:column;gap:6px;flex:none;line-height:1}
+.brand-wordmark strong{font-size:clamp(18px,1.7vw,24px);font-weight:700;letter-spacing:-.05em}
+.brand-wordmark small{font:9px/1 monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--violet)}
+@media(max-width:700px){.brand-wordmark strong{font-size:17px}.brand-wordmark small{font-size:8px}}
+
+/* Services — founder offers */
+.offers{position:relative;padding-top:clamp(110px,11vw,180px);padding-bottom:clamp(90px,9vw,140px);border-bottom:1px solid #17171718}
+.offers .section-head{grid-template-columns:minmax(170px,.72fr) 3fr;gap:clamp(28px,4vw,70px);padding-top:24px;border-top:1px solid #17171735}
+.offers .section-head>span{display:inline-flex;width:max-content;align-items:center;background:var(--ink);color:#fff;border-radius:99px;padding:10px 13px;font:9px/1 monospace;letter-spacing:.12em}
+.offers .section-head h2{line-height:.82}
+.offers .section-head h2 em{position:relative;display:inline-block}
+.offers .section-head h2 em:after{content:"";position:absolute;left:1%;right:-2%;bottom:-10%;height:10%;background:var(--acid);z-index:-1;transform:rotate(-1.5deg)}
+.offer-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:clamp(58px,7vw,92px)}
+.offer{display:flex;flex-direction:column;padding:30px 26px 26px;background:#ffffffa8;border:1px solid #fff;border-radius:26px;box-shadow:0 18px 55px #25203910,0 2px 0 #fff inset;backdrop-filter:blur(14px)}
+.offer.reveal.in{transition:opacity .9s ease,transform .55s cubic-bezier(.16,1,.3,1),box-shadow .55s cubic-bezier(.16,1,.3,1)}
+.offer.in:hover{transform:translateY(-14px);box-shadow:0 35px 90px #251b5922,0 2px 0 #fff inset}
+.offer-index{align-self:flex-start;background:var(--acid);color:var(--ink);border-radius:20px;padding:8px 10px;font:10px/1 monospace;letter-spacing:.1em}
+.offer h3{font-size:clamp(28px,2.6vw,42px);font-weight:550;letter-spacing:-.045em;line-height:.96;margin:42px 0 14px}
+.offer>p{font-size:15px;line-height:1.5;color:#171717a8;margin:0}
+.offer dl{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:28px 0 0;padding:16px 0;border-top:1px solid #17171720;border-bottom:1px solid #17171720}
+.offer dt{font:9px/1 monospace;letter-spacing:.12em;text-transform:uppercase;color:#171717b8}
+.offer dd{margin:0;font-size:18px;font-weight:550;letter-spacing:-.03em;color:var(--violet)}
+.offer ul{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:22px 0 30px;padding:0}
+.offer li{border:1px solid #7457ff2e;background:#7457ff0d;color:var(--violet);border-radius:99px;padding:9px 11px;font:9px/1 monospace;letter-spacing:.08em;text-transform:uppercase}
+.offer-cta{margin-top:auto;align-self:flex-start;background:var(--ink);color:#fff;border-radius:40px;padding:13px 18px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;box-shadow:0 9px 22px #17171720;transition:transform .3s,background .3s,box-shadow .3s}
+.offer-cta:hover{background:var(--violet);transform:translateY(-3px);box-shadow:0 14px 28px #7457ff38}
+.offers-note{margin:56px 0 0;text-align:center;font-size:clamp(18px,2vw,26px);line-height:1.3;letter-spacing:-.025em}
+.offers-note a{border-bottom:2px solid var(--violet);color:var(--violet)}
+.offers-note a:hover{background:var(--acid)}
+.offer a:focus-visible,.offers-note a:focus-visible{outline:3px solid var(--violet);outline-offset:4px}
+@media(max-width:1100px){.offer-list{grid-template-columns:1fr 1fr}.offer:last-child{grid-column:1/-1}}
+@media(max-width:800px){.offers .section-head{grid-template-columns:1fr}.offers .section-head h2{margin-top:14px}.offer-list{grid-template-columns:1fr;gap:22px}}
+@media(max-width:520px){.offers{padding-left:18px;padding-right:18px}.offers .section-head h2{font-size:clamp(58px,18vw,86px)}.offer{padding:24px 20px 22px;border-radius:20px}.offer h3{margin-top:30px}.offers-note{text-align:left}}
+
+.work .section-head>span{width:max-content;align-self:start}
+.project-list.is-collapsed>.project:nth-child(n+7){display:none!important}
+.project-list .project-meta>b.project-badge{font:10px/1 monospace;letter-spacing:.08em}
+
+/* Projects — stacking cards: each card sticks, the next slides over it; --cover (0–1) is set on scroll */
+@media(min-width:801px) and (min-height:720px){
+.work{overflow:clip}
+.project-list{display:block}
+.project-list>.project:not(.mobile-project):nth-child(1){--i:0}.project-list>.project:not(.mobile-project):nth-child(2){--i:1}.project-list>.project:not(.mobile-project):nth-child(3){--i:2}.project-list>.project:not(.mobile-project):nth-child(4){--i:3}.project-list>.project:not(.mobile-project):nth-child(5){--i:4}.project-list>.project:not(.mobile-project):nth-child(6){--i:5}.project-list>.project:not(.mobile-project):nth-child(7){--i:6}.project-list>.project:not(.mobile-project):nth-child(8){--i:7}.project-list>.project:not(.mobile-project):nth-child(9){--i:8}.project-list>.project:not(.mobile-project):nth-child(10){--i:9}.project-list>.project:not(.mobile-project):nth-child(11){--i:10}.project-list>.project:not(.mobile-project):nth-child(12){--i:11}.project-list>.project:not(.mobile-project):nth-child(13){--i:12}
+.project-list>.project:not(.mobile-project){position:sticky;top:calc(28px + var(--i)*12px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:clamp(24px,3vw,48px);height:clamp(460px,calc(100vh - 220px),600px)!important;margin:0 0 14vh!important;padding:14px clamp(18px,2.4vw,36px) 14px 14px;border-radius:28px;box-shadow:0 -6px 24px #25203914;scale:calc(1 - var(--cover,0)*.06);transform-origin:50% 0;will-change:scale;backdrop-filter:none;overflow:hidden}
+.project-list>.project:not(.mobile-project):hover{transform:none}
+.project-list>.project:not(.mobile-project):nth-child(3n+2){background:linear-gradient(135deg,#fff 0 55%,#f1edff)}
+.project-list>.project:not(.mobile-project):nth-child(3n+3){background:linear-gradient(135deg,#fff 0 55%,#f4ffdc)}
+.project-list>.project:not(.mobile-project):after{content:counter(projects,decimal-leading-zero);position:absolute;z-index:0;right:clamp(14px,2vw,30px);bottom:-.16em;font-size:clamp(110px,12vw,200px);font-weight:800;line-height:1;letter-spacing:-.08em;color:transparent;-webkit-text-stroke:1.5px #7457ff30;pointer-events:none}
+.project-list>.project:not(.mobile-project) .project-art{grid-column:1;grid-row:1/-1;height:100%;aspect-ratio:auto;border-radius:20px}
+.project-list>.project:not(.mobile-project) .project-meta{position:relative;z-index:1;grid-column:2;grid-row:1;padding:clamp(28px,3.4vw,54px) 0 0}
+.project-list>.project:not(.mobile-project) .project-meta h3{font-size:clamp(34px,3.8vw,62px);line-height:.92;letter-spacing:-.055em}
+.project-list>.project:not(.mobile-project) .project-meta>div p{font-size:15px}
+.project-list>.project:not(.mobile-project) details{position:relative;z-index:1;grid-column:2;grid-row:2;min-height:0;overflow:auto;margin:22px 0 0;scrollbar-width:thin}
+.project-list>.project:not(.mobile-project) .case-grid{grid-template-columns:1fr}
+.project-list>.mobile-project{position:relative;z-index:30;margin:0!important;padding:40px 0;background:#f3f2ef;box-shadow:-90px 0 0 #f3f2ef,90px 0 0 #f3f2ef}
+}
+@media(min-width:801px) and (max-width:1100px) and (min-height:720px){
+.project-list>.project:not(.mobile-project){grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.project-list>.project:not(.mobile-project) .project-meta>div p{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.project-list>.project:not(.mobile-project){scale:none;will-change:auto}}
+.project:before{content:counter(projects,decimal-leading-zero)}
+@media(min-width:701px){.hero-portrait figcaption{left:auto;right:4%}}
+/* Cleanup: removed job-seeker labels; keep spacing after removing the projects intro */
+.hero-aside:before,.footer:before{content:none}
+.work .project-list{margin-top:clamp(58px,7vw,92px)}
+@media(min-width:801px){.contact-links{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1101px){.contact-links{grid-template-columns:repeat(4,1fr)}}

@@ -6,8 +6,49 @@ import portfolioSource from "../index.html?raw";
 const bodyMatch = portfolioSource.match(/<body[^>]*>([\s\S]*?)<script>/i);
 const portfolioMarkup = (bodyMatch?.[1] ?? "").replaceAll("/public/", "/");
 
+// Brand names, BOOKING_URL, and contact email live in the site-config block at the top of index.html.
+type SiteConfig = {
+  personName: string;
+  role: string;
+  positioning: string;
+  BOOKING_URL: string;
+  email: string;
+};
+const configMatch = portfolioSource.match(/<script type="application\/json" id="site-config">([\s\S]*?)<\/script>/i);
+const siteConfig: SiteConfig = JSON.parse(configMatch?.[1] ?? "{}");
+const BOOKING_URL = siteConfig.BOOKING_URL ?? "#contact";
+const siteValues: Record<string, string> = {
+  personName: siteConfig.personName,
+  roleLine: siteConfig.role,
+  brandLine: `${siteConfig.role} / ${siteConfig.positioning}`,
+  email: siteConfig.email,
+};
+
+function applySiteConfig() {
+  document.querySelectorAll<HTMLElement>("[data-site-text]").forEach((element) => {
+    const value = siteValues[element.dataset.siteText ?? ""];
+    if (value) element.textContent = value;
+  });
+  document.querySelectorAll<HTMLAnchorElement>("[data-site-href]").forEach((link) => {
+    if (link.dataset.siteHref === "email") {
+      link.href = `mailto:${siteConfig.email}`;
+      return;
+    }
+    link.href = BOOKING_URL;
+    if (/^https?:/.test(BOOKING_URL)) {
+      link.target = "_blank";
+      link.rel = "noreferrer";
+    }
+  });
+  document.querySelectorAll<HTMLFormElement>("[data-site-action]").forEach((form) => {
+    form.action = `mailto:${siteConfig.email}`;
+  });
+}
+
 export default function PortfolioClient() {
   useEffect(() => {
+    applySiteConfig();
+
     const menuButton = document.querySelector<HTMLButtonElement>(".menu-toggle");
     const menu = document.querySelector<HTMLElement>("#menu");
 
@@ -28,7 +69,7 @@ export default function PortfolioClient() {
     menuLinks.forEach((link) => link.addEventListener("click", closeMenu));
 
     const targets = document.querySelectorAll(
-      ".signal,.section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.footer>*",
+      ".signal,.section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.footer>*,.offer,.offers-note",
     );
     targets.forEach((element) => element.classList.add("reveal"));
 
@@ -63,6 +104,43 @@ export default function PortfolioClient() {
       moreButton.addEventListener("click", toggleProjects);
     }
 
+    // Stacking project cards: --cover (0–1) tracks how much the next card overlaps this one.
+    const stackCards = Array.from(
+      document.querySelectorAll<HTMLElement>(".project-list>.project:not(.mobile-project)"),
+    );
+    const stackQuery = window.matchMedia(
+      "(min-width:801px) and (min-height:720px) and (prefers-reduced-motion:no-preference)",
+    );
+    let stackFrame = 0;
+    const updateStack = () => {
+      stackFrame = 0;
+      const enabled = stackQuery.matches;
+      const viewportHeight = window.innerHeight;
+      stackCards.forEach((card) => {
+        let cover = 0;
+        if (enabled && card.offsetParent) {
+          let next = card.nextElementSibling as HTMLElement | null;
+          while (next && !next.offsetParent) next = next.nextElementSibling as HTMLElement | null;
+          const nextTop = next?.getBoundingClientRect().top ?? Infinity;
+          if (nextTop < viewportHeight) {
+            const cardRect = card.getBoundingClientRect();
+            cover = Math.min(1, Math.max(0, (cardRect.bottom - nextTop) / cardRect.height));
+          }
+        }
+        const value = cover.toFixed(2);
+        if (card.dataset.cover !== value) {
+          card.dataset.cover = value;
+          card.style.setProperty("--cover", value);
+        }
+      });
+    };
+    const requestStackUpdate = () => {
+      if (!stackFrame) stackFrame = requestAnimationFrame(updateStack);
+    };
+    window.addEventListener("scroll", requestStackUpdate, { passive: true });
+    window.addEventListener("resize", updateStack);
+    updateStack();
+
     const cursor = document.querySelector<HTMLElement>(".cursor");
     const interactiveElements = Array.from(
       document.querySelectorAll<HTMLElement>("a,button,.project"),
@@ -87,6 +165,9 @@ export default function PortfolioClient() {
       menuLinks.forEach((link) => link.removeEventListener("click", closeMenu));
       observer.disconnect();
       moreButton?.removeEventListener("click", toggleProjects);
+      window.removeEventListener("scroll", requestStackUpdate);
+      window.removeEventListener("resize", updateStack);
+      cancelAnimationFrame(stackFrame);
       window.removeEventListener("mousemove", moveCursor);
       interactiveElements.forEach((element) => {
         element.removeEventListener("mouseenter", activateCursor);
