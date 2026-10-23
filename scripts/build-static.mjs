@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const root = process.cwd();
@@ -145,5 +145,9 @@ await writeFile(
 `,
 );
 await cp(resolve(root, "404.html"), resolve(output, "404.html"));
+// Google Search Console HTML-file verification: keep these files at the site root, even after verifying.
+for (const file of await readdir(root)) {
+  if (/^google[0-9a-f]+\.html$/.test(file)) await cp(resolve(root, file), resolve(output, file));
+}
 
 console.log(`Static portfolio prepared in static-dist for ${siteUrl}`);

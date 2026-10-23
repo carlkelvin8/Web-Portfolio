@@ -3,7 +3,7 @@
   "framework": null,
   "buildCommand": "node scripts/build-static.mjs",
   "outputDirectory": "static-dist",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
     {
