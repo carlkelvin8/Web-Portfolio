@@ -1,5 +1,7 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { pages } from "./pages.mjs";
+import { renderPage, sharedBlocks } from "./render-page.mjs";
 
 const root = process.cwd();
 const output = resolve(root, "static-dist");
@@ -75,7 +77,7 @@ const jsonLd = {
       "@type": "ProfilePage",
       "@id": `${siteUrl}/#profile`,
       url: `${siteUrl}/`,
-      name: `${config.personName} | Freelance MVP Developer`,
+      name: `${config.personName} | Freelance Web & App Developer, Philippines`,
       isPartOf: { "@id": `${siteUrl}/#website` },
       mainEntity: { "@id": `${siteUrl}/#person` },
       dateModified: today,
@@ -128,6 +130,18 @@ const html = source
   .replace("<!--%JSON_LD%-->", `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`);
 await writeFile(resolve(output, "index.html"), html);
 
+// Service landing pages, served at /<slug> through the rewrites in vercel.json.
+const vercelConfig = JSON.parse(await readFile(resolve(root, "vercel.json"), "utf8"));
+const cssVersion = source.match(/globals\.css\?v=([^"]+)"/)?.[1] ?? today;
+const blocks = sharedBlocks(source);
+for (const page of pages) {
+  const rewrite = (vercelConfig.rewrites ?? []).find((rule) => rule.source === `/${page.slug}`);
+  if (rewrite?.destination !== `/${page.slug}.html`) {
+    throw new Error(`vercel.json needs a rewrite from /${page.slug} to /${page.slug}.html`);
+  }
+  await writeFile(resolve(output, `${page.slug}.html`), renderPage(page, { config, siteUrl, cssVersion, blocks, today }));
+}
+
 await writeFile(
   resolve(output, "robots.txt"),
   `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
@@ -141,6 +155,7 @@ await writeFile(
     <lastmod>${today}</lastmod>
     <image:image><image:loc>${siteUrl}/public/carl-kelvin-portrait.webp</image:loc></image:image>
   </url>
+${pages.map((page) => `  <url>\n    <loc>${siteUrl}/${page.slug}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join("\n")}
 </urlset>
 `,
 );

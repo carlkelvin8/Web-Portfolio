@@ -6,15 +6,15 @@ const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://web-portfolio-tau-rust.vercel.app"),
-  title: "Carl Kelvin Manahan | Freelance MVP Developer, Philippines",
+  title: "Freelance Web Developer Philippines | Carl Kelvin Manahan",
   description:
-    "Freelance software engineer in the Philippines. I build MVPs for startup founders: web apps, mobile apps, and admin dashboards, shipped fast. Book a free call.",
+    "Freelance web & app developer in the Philippines. Web apps, mobile apps, admin dashboards, and MVPs for startups and businesses. Fixed prices from $1,900.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "profile",
     url: "/",
     siteName: "Carl Kelvin Manahan",
-    title: "Carl Kelvin Manahan | Freelance MVP Developer",
+    title: "Carl Kelvin Manahan | Freelance Web & App Developer, Philippines",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: { card: "summary_large_image" },

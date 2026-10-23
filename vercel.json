@@ -5,6 +5,28 @@
   "outputDirectory": "static-dist",
   "cleanUrls": false,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/freelance-web-developer-philippines",
+      "destination": "/freelance-web-developer-philippines.html"
+    },
+    {
+      "source": "/web-developer-bulacan",
+      "destination": "/web-developer-bulacan.html"
+    },
+    {
+      "source": "/mobile-app-developer-philippines",
+      "destination": "/mobile-app-developer-philippines.html"
+    },
+    {
+      "source": "/admin-dashboard-developer",
+      "destination": "/admin-dashboard-developer.html"
+    },
+    {
+      "source": "/mvp-development",
+      "destination": "/mvp-development.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
