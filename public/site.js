@@ -74,7 +74,7 @@
 
   const setupReveal = () => {
     const targets = $$(
-      ".signal,.section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.offer,.offers-note,.cta-band>*,.proof,.process-step,.faq-item,.footer>*",
+      ".section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.offer,.offers-note,.cta-band>*,.proof,.process-step,.faq-item,.footer>*",
     );
     const observer = new IntersectionObserver(
       (entries) =>

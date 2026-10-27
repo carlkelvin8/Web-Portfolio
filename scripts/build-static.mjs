@@ -39,7 +39,7 @@ const person = {
   image: `${siteUrl}/public/carl-kelvin-portrait-suit.webp`,
   jobTitle: config.role,
   description:
-    "Freelance software engineer from the Philippines who builds MVPs, mobile apps, and admin dashboards for startup founders.",
+    "Freelance software engineer from the Philippines who builds MVPs, mobile apps, and admin dashboards for startups and businesses.",
   email: `mailto:${config.email}`,
   address: { "@type": "PostalAddress", addressCountry: "PH" },
   nationality: { "@type": "Country", name: "Philippines" },
@@ -107,7 +107,7 @@ const jsonLd = {
       potentialAction: { "@type": "ReserveAction", target: config.BOOKING_URL, name: "Book a free 15-min call" },
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "Services for startup founders",
+        name: "Services for startups and businesses",
         itemListElement: services.map(([name, description, price]) => ({
           "@type": "Offer",
           priceSpecification: { "@type": "PriceSpecification", minPrice: price, priceCurrency: "USD" },

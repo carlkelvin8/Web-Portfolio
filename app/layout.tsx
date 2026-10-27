@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://carlkelvinmanahan.com"),
   title: "Carl Kelvin Manahan | Freelance MVP & App Developer, Philippines",
   description:
-    "Freelance web & app developer in the Philippines. Web apps, mobile apps, admin dashboards, and MVPs for startups and businesses. Fixed prices from $1,900.",
+    "Freelance web & app developer in the Philippines. Web apps, mobile apps, admin dashboards, and MVPs for startups and businesses. Projects from $1,900.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "profile",
