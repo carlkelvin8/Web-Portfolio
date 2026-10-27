@@ -40,7 +40,7 @@ function projectCard(key) {
   return `<article class="page-project"><img loading="lazy" src="/public/${project.image}" alt="${escapeHtml(project.name)} screenshot" width="1800" height="1044"><div><span>${escapeHtml(project.tag)}</span><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.text)}</p>${link}</div></article>`;
 }
 
-export function renderPage(page, { config, siteUrl, cssVersion, blocks, today }) {
+export function renderPage(page, { config, siteUrl, blocks, today }) {
   const path = `/${page.slug}`;
   const url = `${siteUrl}${path}`;
   const booking = config.BOOKING_URL;
@@ -133,7 +133,7 @@ export function renderPage(page, { config, siteUrl, cssVersion, blocks, today })
 <meta name="twitter:title" content="${escapeHtml(page.title)}">
 <meta name="twitter:description" content="${escapeHtml(page.description)}">
 <meta name="twitter:image" content="${siteUrl}/public/og-image.png">
-<link rel="stylesheet" href="/app/globals.css?v=${cssVersion}"><style>body{font-family:Arial,sans-serif}</style>
+<link rel="stylesheet" href="/app/globals.css"><style>body{font-family:Arial,sans-serif}</style>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 </head><body><main>
 <header class="nav shell"><a class="wordmark brand-wordmark" href="/"><strong>${escapeHtml(config.personName)}</strong><small>${escapeHtml(config.role)}</small></a><button class="menu-toggle" aria-expanded="false" aria-controls="menu">Menu</button><nav id="menu"><a href="/#services">Services</a><a href="/#work">Projects</a><a href="/#about">About</a><a href="/#faq">FAQ</a><a class="pill dark" ${bookAttrs}>Book a call ↗</a></nav></header>

@@ -92,12 +92,14 @@
   };
 
   // The first six projects show by default; the button reveals the rest.
+  // Hiding only one or two cards behind a button isn't worth the click, so short lists stay open.
   const setupProjectToggle = () => {
     const VISIBLE = 6;
+    const MIN_HIDDEN = 3;
     const list = $("#project-list");
     const button = $(".projects-more-button");
     const hidden = list ? list.children.length - VISIBLE : 0;
-    if (!button || hidden <= 0) return;
+    if (!button || hidden < MIN_HIDDEN) return;
     const label = (expanded) =>
       expanded
         ? 'Show fewer projects <span aria-hidden="true">↑</span>'

@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { pages } from "./pages.mjs";
@@ -13,6 +14,17 @@ await cp(resolve(root, "public"), resolve(output, "public"), { recursive: true }
 // The Tailwind import only resolves inside the vinext/PostCSS build; in the static site it is a 404 request.
 const css = await readFile(resolve(root, "app/globals.css"), "utf8");
 await writeFile(resolve(output, "app/globals.css"), css.replace(/^@import "tailwindcss";\s*/, ""));
+
+// /public is cached for a week (vercel.json), so every page links shared assets with a content hash:
+// a changed file gets a new URL, an unchanged one stays cached.
+const ASSETS = ["/app/globals.css", "/public/site.js", "/public/cursor.js"];
+const assetHash = Object.fromEntries(
+  await Promise.all(
+    ASSETS.map(async (path) => [path, createHash("sha256").update(await readFile(resolve(root, path.slice(1)))).digest("hex").slice(0, 10)]),
+  ),
+);
+const stampAssets = (html) =>
+  ASSETS.reduce((out, path) => out.replaceAll(new RegExp(`${path.replace(/[./]/g, "\\$&")}(\\?v=[^"]*)?"`, "g"), `${path}?v=${assetHash[path]}"`), html);
 
 const source = await readFile(resolve(root, "index.html"), "utf8");
 const configMatch = source.match(/<script type="application\/json" id="site-config">([\s\S]*?)<\/script>/);
@@ -128,18 +140,17 @@ if (faqEntries.length) {
 const html = source
   .replaceAll("%SITE_URL%", siteUrl)
   .replace("<!--%JSON_LD%-->", `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`);
-await writeFile(resolve(output, "index.html"), html);
+await writeFile(resolve(output, "index.html"), stampAssets(html));
 
 // Service landing pages, served at /<slug> through the rewrites in vercel.json.
 const vercelConfig = JSON.parse(await readFile(resolve(root, "vercel.json"), "utf8"));
-const cssVersion = source.match(/globals\.css\?v=([^"]+)"/)?.[1] ?? today;
 const blocks = sharedBlocks(source);
 for (const page of pages) {
   const rewrite = (vercelConfig.rewrites ?? []).find((rule) => rule.source === `/${page.slug}`);
   if (rewrite?.destination !== `/${page.slug}.html`) {
     throw new Error(`vercel.json needs a rewrite from /${page.slug} to /${page.slug}.html`);
   }
-  await writeFile(resolve(output, `${page.slug}.html`), renderPage(page, { config, siteUrl, cssVersion, blocks, today }));
+  await writeFile(resolve(output, `${page.slug}.html`), stampAssets(renderPage(page, { config, siteUrl, blocks, today })));
 }
 
 await writeFile(

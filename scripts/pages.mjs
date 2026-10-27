@@ -35,16 +35,13 @@ export const offers = {
 
 export const projects = {
   clinforce: { name: "Clinforce AI", tag: "AI recruitment SaaS", image: "clinforce-ai.webp", url: "https://app.aiclinforce.com", text: "A two-sided healthcare recruitment platform with AI-assisted candidate matching, hiring pipelines, and subscriptions." },
-  smartvend: { name: "SmartVend", tag: "Company website · Norway", image: "smartvend-clean.webp", url: "https://smartvend.no", text: "A product-led website for a Norwegian smart-vending business, with machine options, company story, and a clear order path." },
+  smartvend: { name: "SmartVend", tag: "Company website · Norway", image: "smartvend-home.webp", url: "https://smartvend.no", text: "A product-led website for a Norwegian smart-vending business, with machine options, company story, and a clear order path." },
   pili: { name: "Pili AdheSeal", tag: "Product website", image: "pili-adheseal.webp", url: "https://pili-adheseal.com", text: "A company website that explains Filipino-engineered sustainable adhesives to customers, partners, and industry." },
   fpl: { name: "FPL4FLIGHT", tag: "Mobile app + admin SaaS", image: "pilotforms.webp", url: "https://fpl-4-flight-admin.vercel.app", text: "Offline-first aviation paperwork for pilots on mobile, paired with a web admin for forms, subscriptions, and analytics." },
-  dropnfly: { name: "DropnFly", tag: "Service platform", image: "dropnfly.webp", url: "https://dropn-fly.vercel.app", text: "Luggage pickup, storage, and delivery booking for travelers, with QR access and live tracking." },
-  steam: { name: "STEAM ELMS", tag: "Learning platform", image: "steam-elms.webp", url: "https://steam-elms.vercel.app", text: "A learning management system with courses, quizzes, grades, gamification, and browser-based 3D and VR lessons." },
   lesgo: { name: "LeSgo Courier", tag: "Android app · Google Play", image: "lesgo-courier-home.webp", url: "https://play.google.com/store/apps/details?id=com.lesgo_customer", text: "A courier and delivery app with LesEat food orders, LesBuy grocery shopping, and an in-app LesPay wallet." },
-  masterfunds: { name: "MasterFunds", tag: "Fintech mobile app", image: "masterfunds.webp", url: null, text: "A borrower dashboard for loan balances, due dates, payments, credit-score visibility, and transaction history." },
   bangkokfinds: { name: "BangkokFinds", tag: "Commerce admin", image: "bangkokfinds.webp", url: null, text: "A back-office for sales, orders, sellers, inventory, shipping, finance, POS, and CRM, with timezone-aware reporting." },
   achievia: { name: "Achievia Admin", tag: "Learning admin", image: "achievia-admin.webp", url: "https://github.com/carlkelvin8/Achievia-Admin", text: "An admin portal for students, teachers, courses, question banks, quizzes, and academic performance analytics." },
-  kalasag: { name: "Kalasag-Tala", tag: "Operations system", image: "kalasag-tala.webp", url: null, text: "A role-based system for enrollment, QR attendance, grades, merits, exams, and program reporting." },
+  ibaan: { name: "Ibaan GIS", tag: "Government GIS", image: "ibaan-gis.webp", url: "https://github.com/carlkelvin8/Ibaan-GIS", text: "A land and property system for Ibaan, Batangas that links tax records to mapped parcels, with PostGIS spatial validation." },
 };
 
 export const pages = [
@@ -85,7 +82,7 @@ export const pages = [
       },
     ],
     offers: ["mvp", "mobile", "dashboard"],
-    projects: ["clinforce", "smartvend", "pili", "dropnfly"],
+    projects: ["clinforce", "smartvend", "pili", "ibaan"],
     faqs: [
       ["How much does a freelance web developer cost in the Philippines?", "Rates vary a lot by experience and scope. My projects are fixed price, starting at $1,900 for an admin dashboard, and you get an exact quote after a free 15-min call and scoping."],
       ["Do you build simple websites or only web apps?", "Both. Alongside web apps, I build company and product websites, such as SmartVend and Pili AdheSeal. Tell me what you need on a free call and I’ll recommend the simplest option that does the job."],
@@ -122,7 +119,7 @@ export const pages = [
       },
     ],
     offers: ["mvp", "mobile", "dashboard"],
-    projects: ["lesgo", "pili", "smartvend", "kalasag"],
+    projects: ["lesgo", "pili", "smartvend", "ibaan"],
     faqs: [
       ["Do you work with businesses outside Bulacan?", "Yes. I’m based in San Jose del Monte, Bulacan, and I work with clients in Metro Manila, across the Philippines, and abroad. Calls and progress updates happen online, so location is never a blocker."],
       ["Can we talk in Filipino?", "Yes. Calls and messages can be in Filipino or English, whichever is easier for you and your team."],
@@ -160,7 +157,7 @@ export const pages = [
       },
     ],
     offers: ["mobile", "mvp"],
-    projects: ["lesgo", "fpl", "masterfunds", "clinforce"],
+    projects: ["lesgo", "fpl", "clinforce", "ibaan"],
     faqs: [
       ["How much does it cost to build a mobile app in the Philippines?", "My mobile app projects are fixed price, starting at $7,900 for an iOS and Android app with a backend API, auth, payments, and store release. The exact price depends on features, and you get a fixed quote after scoping."],
       ["Do you build native apps or React Native?", "React Native. It renders real native components, so the app looks and feels native on both platforms, and for most startups it’s faster and more affordable than two separate native apps."],
@@ -197,7 +194,7 @@ export const pages = [
       },
     ],
     offers: ["dashboard", "mvp"],
-    projects: ["bangkokfinds", "achievia", "kalasag", "fpl"],
+    projects: ["ibaan", "bangkokfinds", "achievia", "fpl"],
     faqs: [
       ["How much does a custom admin dashboard cost?", "Admin dashboards start at $1,900, fixed price, for a typical 2-4 week build with CRUD, roles, reports, CSV import/export, and analytics. Larger dashboards with more workflows are quoted after scoping."],
       ["Can you build a dashboard on top of my existing database?", "Yes. I can connect to your existing database or API and build the admin layer on top, so you don’t need to migrate your data."],
@@ -240,7 +237,7 @@ export const pages = [
       },
     ],
     offers: ["mvp", "mobile"],
-    projects: ["clinforce", "dropnfly", "steam", "fpl"],
+    projects: ["clinforce", "fpl", "lesgo", "ibaan"],
     faqs: [
       ["How much does it cost to build an MVP?", "My MVP builds start at $4,900, fixed price, for scoping, UI, web app, API, and deployment. You get an exact quote after a free 15-min call and scoping."],
       ["How long does it take to build an MVP?", "A typical MVP takes 6-8 weeks from signed scope to launch. Smaller scopes can be faster; a mobile app with an API usually takes 8-12 weeks."],
