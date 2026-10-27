@@ -1,5 +1,5 @@
-// Page behaviour shared by the homepage, the service landing pages, and the vinext app.
-// Every feature looks for its own elements first, so one file serves all of them.
+// Page behaviour for the homepage, shared by the static build and the vinext app.
+// Every feature looks for its own elements first and does nothing if they are missing.
 (() => {
   if (window.__siteScript) return;
   window.__siteScript = true;
@@ -60,7 +60,7 @@
   // Sticky mobile CTA: shown once the hero scrolls away, hidden again at the contact section.
   const setupMobileCta = () => {
     const cta = $(".mobile-cta");
-    const hero = $(".hero, .page-hero");
+    const hero = $(".hero");
     const contact = $("#contact");
     if (!cta || !hero || !contact) return;
     const visible = new Map();
@@ -74,7 +74,7 @@
 
   const setupReveal = () => {
     const targets = $$(
-      ".signal,.section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.offer,.offers-note,.cta-band>*,.proof,.process-step,.faq-item,.page-body>article,.page-project,.footer>*",
+      ".signal,.section-head,.section-intro,.project,.about>*,.capabilities>*,.timeline article,.offer,.offers-note,.cta-band>*,.proof,.process-step,.faq-item,.footer>*",
     );
     const observer = new IntersectionObserver(
       (entries) =>

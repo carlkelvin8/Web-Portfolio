@@ -1,8 +1,6 @@
 import { createHash } from "node:crypto";
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { pages } from "./pages.mjs";
-import { renderPage, sharedBlocks } from "./render-page.mjs";
 
 const root = process.cwd();
 const output = resolve(root, "static-dist");
@@ -142,17 +140,6 @@ const html = source
   .replace("<!--%JSON_LD%-->", `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`);
 await writeFile(resolve(output, "index.html"), stampAssets(html));
 
-// Service landing pages, served at /<slug> through the rewrites in vercel.json.
-const vercelConfig = JSON.parse(await readFile(resolve(root, "vercel.json"), "utf8"));
-const blocks = sharedBlocks(source);
-for (const page of pages) {
-  const rewrite = (vercelConfig.rewrites ?? []).find((rule) => rule.source === `/${page.slug}`);
-  if (rewrite?.destination !== `/${page.slug}.html`) {
-    throw new Error(`vercel.json needs a rewrite from /${page.slug} to /${page.slug}.html`);
-  }
-  await writeFile(resolve(output, `${page.slug}.html`), stampAssets(renderPage(page, { config, siteUrl, blocks, today })));
-}
-
 await writeFile(
   resolve(output, "robots.txt"),
   `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
@@ -166,7 +153,6 @@ await writeFile(
     <lastmod>${today}</lastmod>
     <image:image><image:loc>${siteUrl}/public/carl-kelvin-portrait-suit.webp</image:loc></image:image>
   </url>
-${pages.map((page) => `  <url>\n    <loc>${siteUrl}/${page.slug}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join("\n")}
 </urlset>
 `,
 );

@@ -1,4 +1,4 @@
-// Custom cursor shared by the homepage and the service pages.
+// Custom cursor for the homepage, shared by the static build and the vinext app.
 // A precise dot tracks the pointer; a trailing ring stretches with speed, fills on links,
 // wraps magnetic buttons, and turns into a labelled disc over project previews.
 // Mouse and trackpad only: touch devices and keyboard users keep native behaviour.
@@ -20,13 +20,13 @@
 
   const INTERACTIVE = "a,button,summary,label,[role=button],[data-cursor]";
   const MAGNETIC = ".hero-primary,.cta-band-button,.call-promise-button,.offer-cta,.pill,.projects-more-button,.play-store-cta,.menu-toggle";
-  const MEDIA = "a.project-art,.page-project img";
+  const MEDIA = "a.project-art";
   const TEXT = "input:not([type=button],[type=submit],[type=checkbox],[type=radio]),textarea,select,[contenteditable=true]";
 
   // What the disc says over a project preview, unless the element sets data-cursor itself.
   const mediaLabel = (el) => {
     if (el.dataset.cursor) return el.dataset.cursor;
-    const href = (el.closest("a") ?? el.closest(".page-project")?.querySelector("a"))?.href ?? "";
+    const href = el.closest("a")?.href ?? "";
     if (href.includes("github.com")) return "View code";
     if (href.includes("play.google")) return "Get the app";
     return href ? "Visit site" : "View";

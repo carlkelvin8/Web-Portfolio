@@ -5,26 +5,56 @@
   "outputDirectory": "static-dist",
   "cleanUrls": false,
   "trailingSlash": false,
-  "rewrites": [
+  "redirects": [
     {
       "source": "/freelance-web-developer-philippines",
-      "destination": "/freelance-web-developer-philippines.html"
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/freelance-web-developer-philippines.html",
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/web-developer-bulacan",
-      "destination": "/web-developer-bulacan.html"
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/web-developer-bulacan.html",
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/mobile-app-developer-philippines",
-      "destination": "/mobile-app-developer-philippines.html"
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mobile-app-developer-philippines.html",
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/admin-dashboard-developer",
-      "destination": "/admin-dashboard-developer.html"
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/admin-dashboard-developer.html",
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/mvp-development",
-      "destination": "/mvp-development.html"
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mvp-development.html",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [
