@@ -291,3 +291,7 @@
 @media(max-width:800px){.page-body{grid-template-columns:1fr}.offer-list.cols-2{grid-template-columns:1fr}}
 @media(max-width:560px){.page-project-grid{grid-template-columns:1fr}.breadcrumb{flex-wrap:wrap}}
 .eyebrow .availability-text{display:inline!important}
+/* Featured projects */
+.project-art .featured-tag{position:absolute;right:16px;top:15px;z-index:4;background:var(--acid);color:var(--ink);border-radius:30px;padding:8px 12px;font:700 10px/1 monospace;letter-spacing:.1em;text-transform:uppercase;font-style:normal;box-shadow:0 8px 22px #17171726}
+.project-list>.featured-project:not(.mobile-project){border-color:#17171740;box-shadow:0 0 0 2px var(--acid),0 24px 60px #18142a1f}
+@media(max-width:800px){.project-art .featured-tag{right:auto;left:18px;top:52px}}
