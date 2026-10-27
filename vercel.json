@@ -3,22 +3,59 @@
   "framework": null,
   "buildCommand": "node scripts/build-static.mjs",
   "outputDirectory": "static-dist",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!app/|public/|.*\\..*).*)",
-      "destination": "/index.html"
+      "source": "/freelance-web-developer-philippines",
+      "destination": "/freelance-web-developer-philippines.html"
+    },
+    {
+      "source": "/web-developer-bulacan",
+      "destination": "/web-developer-bulacan.html"
+    },
+    {
+      "source": "/mobile-app-developer-philippines",
+      "destination": "/mobile-app-developer-philippines.html"
+    },
+    {
+      "source": "/admin-dashboard-developer",
+      "destination": "/admin-dashboard-developer.html"
+    },
+    {
+      "source": "/mvp-development",
+      "destination": "/mvp-development.html"
     }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/public/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
       ]
     }
   ]

@@ -5,9 +5,20 @@ import "./globals.css";
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Carl Kelvin Manahan — Software Engineer",
-  description: "Portfolio of Carl Kelvin Manahan, a 22-year-old Software Engineer from the Philippines.",
-  icons: { icon: "/favicon.svg" },
+  metadataBase: new URL("https://web-portfolio-tau-rust.vercel.app"),
+  title: "Freelance Web Developer Philippines | Carl Kelvin Manahan",
+  description:
+    "Freelance web & app developer in the Philippines. Web apps, mobile apps, admin dashboards, and MVPs for startups and businesses. Fixed prices from $1,900.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "profile",
+    url: "/",
+    siteName: "Carl Kelvin Manahan",
+    title: "Carl Kelvin Manahan | Freelance Web & App Developer, Philippines",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: { card: "summary_large_image" },
+  icons: { icon: "/favicon.svg", apple: "/apple-touch-icon.png" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
