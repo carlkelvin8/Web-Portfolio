@@ -165,23 +165,12 @@ export default function PortfolioClient() {
     window.addEventListener("resize", updateStack);
     updateStack();
 
-    const cursor = document.querySelector<HTMLElement>(".cursor");
-    const interactiveElements = Array.from(
-      document.querySelectorAll<HTMLElement>("a,button,.project"),
-    );
-    const activateCursor = () => cursor?.classList.add("active");
-    const deactivateCursor = () => cursor?.classList.remove("active");
-    const moveCursor = (event: MouseEvent) => {
-      if (cursor) cursor.style.transform = `translate(${event.clientX}px,${event.clientY}px)`;
-    };
-    const hasFinePointer = window.matchMedia("(pointer:fine)").matches;
-
-    if (hasFinePointer) {
-      window.addEventListener("mousemove", moveCursor);
-      interactiveElements.forEach((element) => {
-        element.addEventListener("mouseenter", activateCursor);
-        element.addEventListener("mouseleave", deactivateCursor);
-      });
+    // Same custom cursor as the static site; the script guards against running twice.
+    if (!document.querySelector("script[data-cursor-script]")) {
+      const cursorScript = document.createElement("script");
+      cursorScript.src = "/cursor.js";
+      cursorScript.dataset.cursorScript = "";
+      document.body.append(cursorScript);
     }
 
     return () => {
@@ -193,11 +182,6 @@ export default function PortfolioClient() {
       window.removeEventListener("scroll", requestStackUpdate);
       window.removeEventListener("resize", updateStack);
       cancelAnimationFrame(stackFrame);
-      window.removeEventListener("mousemove", moveCursor);
-      interactiveElements.forEach((element) => {
-        element.removeEventListener("mouseenter", activateCursor);
-        element.removeEventListener("mouseleave", deactivateCursor);
-      });
     };
   }, []);
 

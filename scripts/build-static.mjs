@@ -26,7 +26,7 @@ const person = {
   "@id": `${siteUrl}/#person`,
   name: config.personName,
   url: `${siteUrl}/`,
-  image: `${siteUrl}/public/carl-kelvin-portrait.webp`,
+  image: `${siteUrl}/public/carl-kelvin-portrait-suit.webp`,
   jobTitle: config.role,
   description:
     "Freelance software engineer from the Philippines who builds MVPs, mobile apps, and admin dashboards for startup founders.",
@@ -153,7 +153,7 @@ await writeFile(
   <url>
     <loc>${siteUrl}/</loc>
     <lastmod>${today}</lastmod>
-    <image:image><image:loc>${siteUrl}/public/carl-kelvin-portrait.webp</image:loc></image:image>
+    <image:image><image:loc>${siteUrl}/public/carl-kelvin-portrait-suit.webp</image:loc></image:image>
   </url>
 ${pages.map((page) => `  <url>\n    <loc>${siteUrl}/${page.slug}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join("\n")}
 </urlset>

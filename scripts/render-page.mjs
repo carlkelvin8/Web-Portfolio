@@ -137,17 +137,17 @@ export function renderPage(page, { config, siteUrl, cssVersion, blocks, today })
 </head><body><main>
 <header class="nav shell"><a class="wordmark brand-wordmark" href="/"><strong>${escapeHtml(config.personName)}</strong><small>${escapeHtml(config.role)}</small></a><button class="menu-toggle" aria-expanded="false" aria-controls="menu">Menu</button><nav id="menu"><a href="/#services">Services</a><a href="/#work">Projects</a><a href="/#about">About</a><a href="/#faq">FAQ</a><a class="pill dark" ${bookAttrs}>Book a call ↗</a></nav></header>
 <nav class="breadcrumb shell" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">${escapeHtml(page.label)}</span></nav>
-<section class="page-hero shell"><div class="eyebrow"><span>Philippines</span><span class="availability"><i></i><span class="availability-text">Now booking new projects</span></span></div><h1>${page.h1.map(accent).join("<br>")}</h1><p class="page-intro">${escapeHtml(page.intro)}</p><div class="hero-actions"><a class="hero-primary" ${bookAttrs}>Book a free 15-min call ↗</a><a href="#related-work">See related work ↘</a></div><p class="hero-note">Free · 15 minutes · No commitment · Replies within 24h</p></section>
+<section class="page-hero shell"><div class="eyebrow"><span>Philippines</span><span class="availability"><i></i><span class="availability-text">Now booking new projects</span></span></div><h1>${page.h1.map(accent).join("<br>")}</h1><p class="page-intro">${escapeHtml(page.intro)}</p><div class="hero-actions"><a class="hero-primary" ${bookAttrs}>Book a free 15-min call ↗</a><a href="#related-work">See related work ↘</a></div><p class="hero-note">Free · 15 minutes · No commitment</p></section>
 ${blocks.proof}
 <section class="page-body shell">${body}</section>
 <section class="offers shell" id="pricing"><div class="section-head"><span>PRICING</span><h2>Fixed price,<br><em>no surprises.</em></h2></div><div class="offer-list cols-${pageOffers.length}">${page.offers.map((key) => offerCard(key, booking, path)).join("")}</div><p class="offers-note">All prices are fixed and in USD. Not sure what you need? <a ${bookAttrs}>Book a free 15-min call</a> and we’ll figure it out.</p></section>
 <section class="offers page-projects shell" id="related-work"><div class="section-head"><span>RELATED WORK</span><h2>Built &amp;<br><em>shipped.</em></h2></div><div class="page-project-grid">${page.projects.map(projectCard).join("")}</div><p class="offers-note"><a href="/#work">See all 15 projects with case studies</a></p></section>
 ${blocks.process}
-<section class="offers faq shell" id="faq"><div class="section-head"><span>FAQ</span><h2>Questions<br>founders <em>ask.</em></h2></div><div class="faq-list">${faqs}</div></section>
-${blocks.ctaBand}
+<section class="offers faq shell" id="faq"><div class="section-head"><span>FAQ</span><h2>${page.faqHeading.map(accent).join("<br>")}</h2></div><div class="faq-list">${faqs}</div></section>
+${blocks.ctaBand.replace(/<h2>[\s\S]*?<\/h2>/, `<h2>${page.ctaHeading.map(accent).join("<br>")}</h2>`)}
 <footer class="footer shell" id="contact"><span>CONTACT</span><h2>LET’S BUILD<br><em>SOMETHING SOLID.</em></h2>${blocks.contactLinks}${blocks.footerServices}<div class="footer-bottom"><span>© ${today.slice(0, 4)} ${escapeHtml(config.personName)}</span><span>${escapeHtml(config.role)} / ${escapeHtml(config.positioning)}</span><a href="/">Home ↑</a></div></footer>
 <a class="mobile-cta" ${bookAttrs}>Book a free 15-min call ↗</a>
-</main><script>${landingScript}</script></body></html>
+</main><script>${landingScript}</script><script src="/public/cursor.js" defer></script></body></html>
 `;
 }
 
