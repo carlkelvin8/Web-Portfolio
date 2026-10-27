@@ -101,7 +101,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#service`,
       name: `${config.personName} — Freelance MVP Development`,
       url: `${siteUrl}/`,
-      image: `${siteUrl}/public/og-image.png`,
+      image: `${siteUrl}/public/og-image-suit.png`,
       email: config.email,
       address: { "@type": "PostalAddress", addressCountry: "PH" },
       areaServed: "Worldwide",
