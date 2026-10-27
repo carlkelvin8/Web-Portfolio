@@ -19,6 +19,7 @@ export function sharedBlocks(source) {
     ctaBand: take(/<section class="cta-band shell"[\s\S]*?<\/section>/, "CTA band"),
     contactLinks: take(/<div class="contact-links">[\s\S]*?<\/div>/, "contact links"),
     footerServices: take(/<nav class="footer-services"[\s\S]*?<\/nav>/, "footer services"),
+    projectCount: (source.match(/<article class="project[ "]/g) ?? []).length,
   };
 }
 
@@ -141,15 +142,13 @@ export function renderPage(page, { config, siteUrl, cssVersion, blocks, today })
 ${blocks.proof}
 <section class="page-body shell">${body}</section>
 <section class="offers shell" id="pricing"><div class="section-head"><span>PRICING</span><h2>Fixed price,<br><em>no surprises.</em></h2></div><div class="offer-list cols-${pageOffers.length}">${page.offers.map((key) => offerCard(key, booking, path)).join("")}</div><p class="offers-note">All prices are fixed and in USD. Not sure what you need? <a ${bookAttrs}>Book a free 15-min call</a> and we’ll figure it out.</p></section>
-<section class="offers page-projects shell" id="related-work"><div class="section-head"><span>RELATED WORK</span><h2>Built &amp;<br><em>shipped.</em></h2></div><div class="page-project-grid">${page.projects.map(projectCard).join("")}</div><p class="offers-note"><a href="/#work">See all 15 projects with case studies</a></p></section>
+<section class="offers page-projects shell" id="related-work"><div class="section-head"><span>RELATED WORK</span><h2>Built &amp;<br><em>shipped.</em></h2></div><div class="page-project-grid">${page.projects.map(projectCard).join("")}</div><p class="offers-note"><a href="/#work">See all ${blocks.projectCount} projects with case studies</a></p></section>
 ${blocks.process}
 <section class="offers faq shell" id="faq"><div class="section-head"><span>FAQ</span><h2>${page.faqHeading.map(accent).join("<br>")}</h2></div><div class="faq-list">${faqs}</div></section>
 ${blocks.ctaBand.replace(/<h2>[\s\S]*?<\/h2>/, `<h2>${page.ctaHeading.map(accent).join("<br>")}</h2>`)}
 <footer class="footer shell" id="contact"><span>CONTACT</span><h2>LET’S BUILD<br><em>SOMETHING SOLID.</em></h2>${blocks.contactLinks}${blocks.footerServices}<div class="footer-bottom"><span>© ${today.slice(0, 4)} ${escapeHtml(config.personName)}</span><span>${escapeHtml(config.role)} / ${escapeHtml(config.positioning)}</span><a href="/">Home ↑</a></div></footer>
 <a class="mobile-cta" ${bookAttrs}>Book a free 15-min call ↗</a>
-</main><script>${landingScript}</script><script src="/public/cursor.js" defer></script></body></html>
+</main><script src="/public/site.js" defer></script><script src="/public/cursor.js" defer></script></body></html>
 `;
 }
 
-// Same behaviour as the homepage script: menu, scroll reveal, availability month, sticky mobile CTA.
-const landingScript = `const menuButton=document.querySelector('.menu-toggle'),menu=document.querySelector('#menu');menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));menu.classList.toggle('open')});menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');menuButton.setAttribute('aria-expanded','false')}));const nextMonth=new Date();nextMonth.setMonth(nextMonth.getMonth()+1,1);document.querySelectorAll('.availability-text').forEach(el=>{el.textContent='Booking projects for '+nextMonth.toLocaleString('en-US',{month:'long'})});const targets=document.querySelectorAll('.section-head,.offer,.offers-note,.page-body>article,.page-project,.process-step,.process-promises,.faq-item,.cta-band>*,.proof,.footer>*');targets.forEach(el=>el.classList.add('reveal'));const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});targets.forEach(el=>io.observe(el));const mobileCta=document.querySelector('.mobile-cta'),ctaHero=document.querySelector('.page-hero'),ctaContact=document.querySelector('#contact');const seen=new Map();const ctaObserver=new IntersectionObserver(entries=>{entries.forEach(e=>seen.set(e.target,e.isIntersecting));mobileCta.classList.toggle('show',!seen.get(ctaHero)&&!seen.get(ctaContact))});ctaObserver.observe(ctaHero);ctaObserver.observe(ctaContact);`;

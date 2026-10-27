@@ -34,7 +34,6 @@ export const offers = {
 };
 
 export const projects = {
-  carkila: { name: "Carkila.com", tag: "Rental marketplace", image: "carkila.webp", url: "https://carkila.com", text: "A nationwide vehicle-rental marketplace where customers find nearby rentals and providers publish and manage listings." },
   clinforce: { name: "Clinforce AI", tag: "AI recruitment SaaS", image: "clinforce-ai.webp", url: "https://app.aiclinforce.com", text: "A two-sided healthcare recruitment platform with AI-assisted candidate matching, hiring pipelines, and subscriptions." },
   smartvend: { name: "SmartVend", tag: "Company website · Norway", image: "smartvend-clean.webp", url: "https://smartvend.no", text: "A product-led website for a Norwegian smart-vending business, with machine options, company story, and a clear order path." },
   pili: { name: "Pili AdheSeal", tag: "Product website", image: "pili-adheseal.webp", url: "https://pili-adheseal.com", text: "A company website that explains Filipino-engineered sustainable adhesives to customers, partners, and industry." },
@@ -86,7 +85,7 @@ export const pages = [
       },
     ],
     offers: ["mvp", "mobile", "dashboard"],
-    projects: ["carkila", "clinforce", "smartvend", "pili"],
+    projects: ["clinforce", "smartvend", "pili", "dropnfly"],
     faqs: [
       ["How much does a freelance web developer cost in the Philippines?", "Rates vary a lot by experience and scope. My projects are fixed price, starting at $1,900 for an admin dashboard, and you get an exact quote after a free 15-min call and scoping."],
       ["Do you build simple websites or only web apps?", "Both. Alongside web apps, I build company and product websites, such as SmartVend and Pili AdheSeal. Tell me what you need on a free call and I’ll recommend the simplest option that does the job."],
@@ -123,7 +122,7 @@ export const pages = [
       },
     ],
     offers: ["mvp", "mobile", "dashboard"],
-    projects: ["carkila", "lesgo", "kalasag", "pili"],
+    projects: ["lesgo", "pili", "smartvend", "kalasag"],
     faqs: [
       ["Do you work with businesses outside Bulacan?", "Yes. I’m based in San Jose del Monte, Bulacan, and I work with clients in Metro Manila, across the Philippines, and abroad. Calls and progress updates happen online, so location is never a blocker."],
       ["Can we talk in Filipino?", "Yes. Calls and messages can be in Filipino or English, whichever is easier for you and your team."],
@@ -241,7 +240,7 @@ export const pages = [
       },
     ],
     offers: ["mvp", "mobile"],
-    projects: ["carkila", "clinforce", "dropnfly", "steam"],
+    projects: ["clinforce", "dropnfly", "steam", "fpl"],
     faqs: [
       ["How much does it cost to build an MVP?", "My MVP builds start at $4,900, fixed price, for scoping, UI, web app, API, and deployment. You get an exact quote after a free 15-min call and scoping."],
       ["How long does it take to build an MVP?", "A typical MVP takes 6-8 weeks from signed scope to launch. Smaller scopes can be faster; a mobile app with an API usually takes 8-12 weeks."],
